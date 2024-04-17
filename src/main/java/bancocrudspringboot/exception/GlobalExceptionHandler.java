@@ -1,4 +1,4 @@
-package com.bancocrud.springboot.exception;
+package bancocrudspringboot.exception;
 
 import java.util.Date;
 

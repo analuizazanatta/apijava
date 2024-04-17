@@ -1,13 +1,13 @@
-package com.bancocrud.springboot;
+package bancocrudspringboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CrudBancoSpringbootPostgresqlHibernateApplication {
+public class CrudSpringbootPostgresql {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CrudBancoSpringbootPostgresqlHibernateApplication.class, args);
+		SpringApplication.run(CrudSpringbootPostgresql.class, args);
 	}
 
 }

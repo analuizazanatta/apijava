@@ -1,9 +1,11 @@
-package com.bancocrud.springboot.controller;
+package bancocrudspringboot.controller;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import bancocrudspringboot.exception.ResourceNotFoundException;
+import bancocrudspringboot.model.Cadastro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bancocrud.springboot.exception.ResourceNotFoundException;
-import com.bancocrud.springboot.model.Cadastro;
-import com.bancocrud.springboot.repository.CadastroRepository;
+import bancocrudspringboot.repository.CadastroRepository;
 
 
 @RestController

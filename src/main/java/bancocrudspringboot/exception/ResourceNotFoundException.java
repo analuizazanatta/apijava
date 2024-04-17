@@ -1,4 +1,4 @@
-package com.bancocrud.springboot.exception;
+package bancocrudspringboot.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

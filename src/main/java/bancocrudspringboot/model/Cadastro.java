@@ -1,4 +1,4 @@
-package com.bancocrud.springboot.model;
+package bancocrudspringboot.model;
 
 
 import java.time.LocalDate;

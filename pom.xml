@@ -11,7 +11,7 @@
 	<groupId>com.bancocrud</groupId>
 	<artifactId>api-springboot</artifactId>
 	<version>0.0.1</version>
-	<name>crud-banco-springboot-postgresql-hibernate</name>
+	<name>apijava</name>
 	<description>Banco Crud </description>
 
 	<properties>

@@ -1,16 +1,11 @@
-FROM ubuntu:latest AS build
+FROM maven:3.6.0-jdk-11-slim AS build
+COPY src ../crud-banco-springboot-postgresql-hibernate/src
+COPY pom.xml ../crud-banco-springboot-postgresql-hibernate/
+RUN mvn clean install -DskipTests
+RUN mvn -f ../crud-banco-springboot-postgresql-hibernate/pom.xml clean package
 
-RUN apt-get update
-RUN apt-get install openjdk-17-jdk -y
-COPY . .
-
-RUN apt-get install maven -y
-RUN mvn clean install 
-
-FROM openjdk:17-jdk-slim
-
+FROM adoptopenjdk/openjdk11:alpine-jre
 EXPOSE 8080
-
-COPY --from=build /target/deploy_render-1.0.0.jar app.jar
-
-ENTRYPOINT [ "java", "-jar", "app.jar" ]
+COPY src/main/resources/application.properties /app/src/main/resources/application.properties
+ADD target/crud-banco-springboot-postgresql-hibernate-0.0.1.jar app.jar
+ENTRYPOINT ["java","-jar","app.jar"]

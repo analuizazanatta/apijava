@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CrudSpringbootPostgresql {
+public class ApiJava {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CrudSpringbootPostgresql.class, args);
+		SpringApplication.run(ApiJava.class, args);
 	}
 
 }

@@ -23,7 +23,7 @@ public class CadastroController {
 	@Autowired
 	private CadastroRepository cadastroRepository;
 	
-	//pegar todas as contas
+	// pegar todas as contas
 	@GetMapping("/cadastros")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Cadastro> getAllCadastros(){
@@ -65,7 +65,6 @@ public class CadastroController {
         cadastro.setDataNascimento(cadastroCaracteristicas.getDataNascimento());
         
         return ResponseEntity.ok(this.cadastroRepository.save(cadastro));
-        
     }
 	
 	//deletar conta

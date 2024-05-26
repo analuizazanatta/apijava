@@ -106,3 +106,37 @@ class DemoService{
 interface DemoRepository extends JpaRepository<Demo, Long>{
 
 }
+
+//@RestController
+//@RequestMapping("/api/v1")
+//class ProdutoController {
+//
+//    DemoService demoService;
+//
+//    @Autowired
+//    private DemoRepository demoRepository;
+//
+//    public ProdutoController(DemoService demoService) {
+//        this.demoService = demoService;
+//    }
+//
+//    @GetMapping("/demo/{id}")
+//    public Demo getDemo(@PathVariable("id") Long id){
+//        return demoService.getDemo(id).orElse(null);
+//    }
+//
+//    @GetMapping("/demo")
+//    public List<Demo> getAllDemo(){
+//        return demoRepository.findAll();
+//    }
+//
+//    // salvar conta
+//    @PostMapping("/demo")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public Demo createCadastro(@RequestBody Demo cadastro) {
+//
+//        System.out.println("Descricao:" + cadastro.getDescription());
+//
+//        return this.demoRepository.save(cadastro);
+//    }
+//}

@@ -22,6 +22,9 @@ import java.util.Optional;
 @SpringBootApplication
 public class ApijavasenacApplication {
 
+    // video da explicacao
+    // SPRING BOOT NA PRATICA EM 10 MINUTOS
+    // https://www.youtube.com/watch?v=Hwqb12zPT1U
 	public static void main(String[] args) {
 		SpringApplication.run(ApijavasenacApplication.class, args);
 	}

@@ -23,16 +23,20 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Cadastro {
 
     private long id;
+
     @NotNull
-    @Pattern(regexp="\\d{11}", message = "Apenas informe 11 digitos.")
+    @Pattern(regexp="\\d{11}", message = "Apenas informe 6 digitos.")
     private String cpf;
+
     @NotNull
     @Size(min=2, max=100)
     private String nome;
+
     @NotNull
     @Email
     @Pattern(regexp=".+@.+\\..+", message = "Informe um e-mail válido")
     private String email;
+
     @NotNull
     @Past
     @JsonFormat(pattern="dd/MM/yyyy")

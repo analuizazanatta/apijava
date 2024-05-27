@@ -13,19 +13,20 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.sql.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @CrossOrigin
 @RestController
 @RequestMapping("/api/v1")
 public class UsuarioController {
-	
+
+	@PersistenceContext
+	private EntityManager em;
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
@@ -99,40 +100,86 @@ public class UsuarioController {
 		return this.usuarioRepository.findUsuario();
 	}
 
-	// Listar todos os usuarios
-	@GetMapping("/usuariosrelatorio1")
+//	// Listar todos os usuarios
+//	@GetMapping("/usuariosrelatorio1")
+//	@ResponseStatus(HttpStatus.OK)
+//	public List<Usuario> getAllUsuarios1(){
+//		ConsultasComJPQL cons = new ConsultasComJPQL();
+//
+//		Usuario usuario = cons.consultarUsuarioPeloNome();
+//
+//		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+//
+//		listaUsuarios.add(usuario);
+//
+//		return listaUsuarios;
+////		return this.usuarioRepository.findUsuario("adriano");
+//		// return this.usuarioRepository.findUsuario();
+//	}
+
+	// Consulta com SQL completo
+	@GetMapping("/usuariosrelatorio2")
 	@ResponseStatus(HttpStatus.OK)
-	public List<Usuario> getAllUsuarios1(){
-		ConsultasComJPQL cons = new ConsultasComJPQL();
+	public List<Usuario> getAllUsuarios2(){
+		System.out.println("Entrou na função getDashboard()");
+		/*Query query = em.createQuery("select produto.id,\r\n" + "			   produto.descricao,\r\n"
+				+ "			   sum(estoque.quantidade) as qtd \r\n" + "		  from estoque \r\n"
+				+ "		  join pedido on (pedido.id = estoque.pedido)\r\n"
+				+ "		  join produto on (produto.id = estoque.produto_id)\r\n"
+				+ "		 where estoque.operacao = 'Venda'\r\n" + "		   and pedido.status = 1\r\n"
+				+ "	  group by produto.id,\r\n" + "			   produto.descricao");*/
 
-		Usuario usuario = cons.consultarUsuarioPeloNome();
+		// Query query = em.createQuery("select coalesce(max(previsao),current_date) from pedido");
+		Query query = em.createQuery("select u.id,u.email,u.nome,u.senha from public.usuario u");
 
-		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+		System.out.println("Query Dashboard> " + query);
 
-		listaUsuarios.add(usuario);
+		// documentacao de query em JPA
+		// https://docs.oracle.com/javaee%2F6%2Fapi%2F%2F/javax/persistence/Query.html
 
-		return listaUsuarios;
-//		return this.usuarioRepository.findUsuario("adriano");
-		// return this.usuarioRepository.findUsuario();
+		List<Usuario> listaDados = query.getResultList();
+
+		return listaDados;
+
+
+		// NOVO EXEMPLO
+		// https://rafaelsakurai.gitbooks.io/desenvolvimento-distribuido/content/chapter3.1.html
+		// return query.getMaxResults();
+
+
+
+		// exemplo video angelica
+		// https://github.com/angelicaweiler/cadastro-usuarios
+		// video - https://www.youtube.com/watch?v=XSKDRZBPDII&t=518s
+
+
+//
+//		Usuario usuario = cons.consultarUsuarioPeloNome();
+//
+//		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+//
+//		listaUsuarios.add(usuario);
+//
+//		return listaUsuarios;
 	}
 }
-
-@Component
-class ConsultasComJPQL {
-	@PersistenceContext
-	private EntityManager manager;
-
-	public Usuario consultarUsuarioPeloNome(){
-		String nome="Senac";
-		String jpql="SELECT p FROM usuario p where p.nome=:nome";
-		TypedQuery<Usuario> queryUsuario = manager.createQuery(jpql, Usuario.class)
-				.setParameter("nome",nome);
-
-		var retorno =  queryUsuario.getSingleResult();
-
-		System.out.println("DADOS RETORNADOS....");
-		System.out.println(retorno);
-
-		return retorno;
-	}
-}
+//
+//@Component
+//class ConsultasComJPQL {
+//	@PersistenceContext
+//	private EntityManager manager;
+//
+//	public Usuario consultarUsuarioPeloNome(){
+//		String nome="Senac";
+//		String jpql="SELECT p FROM usuario p where p.nome=:nome";
+//		TypedQuery<Usuario> queryUsuario = manager.createQuery(jpql, Usuario.class)
+//				.setParameter("nome",nome);
+//
+//		var retorno =  queryUsuario.getSingleResult();
+//
+//		System.out.println("DADOS RETORNADOS....");
+//		System.out.println(retorno);
+//
+//		return retorno;
+//	}
+//}

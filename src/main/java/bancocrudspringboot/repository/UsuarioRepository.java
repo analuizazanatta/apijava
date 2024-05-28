@@ -30,4 +30,6 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long>{
     @Query(value="select u from Usuario u where lower(u.nome) like lower(concat(:parametro_nome, '%'))", nativeQuery = false)
     List<UsuarioEntity>findUsuarioPersonalizado2(@Param("parametro_nome")String parametro_nome);
 
+    // video usando parametros no SQL
+    // https://www.youtube.com/watch?v=XSKDRZBPDII&t=518s
 }

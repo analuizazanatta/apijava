@@ -1,17 +1,15 @@
 package bancocrudspringboot.model;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.time.LocalDate;
 
 @Setter
 @Entity
 @Table(name = "Usuario", uniqueConstraints={@UniqueConstraint(columnNames={"EMAIL"})})
-public class Usuario {
+public class UsuarioEntity {
 
     private long id;
 
@@ -29,11 +27,11 @@ public class Usuario {
     @Pattern(regexp="\\d{6}", message = "Informe no máximo 6 digitos.")
     private String senha;
 
-    public Usuario() {
+    public UsuarioEntity() {
 
     }
 
-    public Usuario(long id, String senha, String email, String nome) {
+    public UsuarioEntity(long id, String senha, String email, String nome) {
         this.id = id;
         this.senha = senha;
         this.email = email;

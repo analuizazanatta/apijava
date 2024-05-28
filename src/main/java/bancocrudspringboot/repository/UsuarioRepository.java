@@ -1,14 +1,15 @@
 package bancocrudspringboot.repository;
 
-import bancocrudspringboot.model.Usuario;
+import bancocrudspringboot.model.UsuarioEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
+public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long>{
 
 
     // Criar uma consulta personalizada de usuarios
@@ -20,7 +21,13 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 
     // Filtra apenas Adriano
     // @Query(value="select u from usuario u where u.name = 'adriano'", nativeQuery = false)
-    @Query(value="select * from usuario where nome ilike '%adriano%'", nativeQuery = true)
-    List<Usuario> findUsuario();
+    @Query(value="select u from Usuario u where u.nome like '%adriano%'", nativeQuery = false)
+    List<UsuarioEntity>findUsuario();
+
+    @Query(value="select u from Usuario u where u.nome like '%Julio%'", nativeQuery = false)
+    List<UsuarioEntity>findUsuarioPersonalizado();
+
+    @Query(value="select u from Usuario u where lower(u.nome) like lower(concat(:parametro_nome, '%'))", nativeQuery = false)
+    List<UsuarioEntity>findUsuarioPersonalizado2(@Param("parametro_nome")String parametro_nome);
 
 }

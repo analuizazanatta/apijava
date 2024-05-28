@@ -11,25 +11,10 @@ import java.util.List;
 @Repository
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long>{
 
+    @Query(value="select u.* from usuario u where email like concat(:email, '%')", nativeQuery = true)
+    List<UsuarioEntity>findUsuarioByEmail(@Param("email")String email);
 
-    // Criar uma consulta personalizada de usuarios
-    // video - https://www.youtube.com/watch?v=YWTVxWjCt8Y&list=PLqq_mNkalpQfKWSxPfTqCKpGbSfEfdYD2&index=57
+    @Query(value="select u.* from usuario u where nome like concat(:nome, '%')", nativeQuery = true)
+    List<UsuarioEntity>findUsuarioByNome(@Param("nome")String nome);
 
-    // query nativa
-    //    @Query(value="select * from usuario", nativeQuery = true)
-    //    List<Usuario> findUsuario();
-
-    // Filtra apenas Adriano
-    // @Query(value="select u from usuario u where u.name = 'adriano'", nativeQuery = false)
-    @Query(value="select u from UsuarioEntity u where u.nome like '%adriano%'", nativeQuery = false)
-    List<UsuarioEntity>findUsuario();
-
-    @Query(value="select u from UsuarioEntity u where u.nome like '%Julio%'", nativeQuery = false)
-    List<UsuarioEntity>findUsuarioPersonalizado();
-
-    @Query(value="select u from UsuarioEntity u where lower(u.nome) like lower(concat(:parametro_nome, '%'))", nativeQuery = false)
-    List<UsuarioEntity>findUsuarioPersonalizado2(@Param("parametro_nome")String parametro_nome);
-
-    // video usando parametros no SQL
-    // https://www.youtube.com/watch?v=XSKDRZBPDII&t=518s
 }

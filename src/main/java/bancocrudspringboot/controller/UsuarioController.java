@@ -1,6 +1,7 @@
 package bancocrudspringboot.controller;
 
 import bancocrudspringboot.exception.ResourceNotFoundException;
+import bancocrudspringboot.model.ConsultaPadrao;
 import bancocrudspringboot.model.UsuarioEntity;
 import bancocrudspringboot.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,6 @@ public class UsuarioController {
 		return this.usuarioRepository.save(cadastro);
 	}
 
-	// atualizar dados
 	@PutMapping("/usuarios/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<UsuarioEntity> updateCadastro(@PathVariable(value = "id") Long cadastroId,
@@ -66,7 +66,6 @@ public class UsuarioController {
 		return ResponseEntity.ok(this.usuarioRepository.save(cadastro));
 	}
 
-	//deletar conta
 	@DeleteMapping("/usuarios/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Map<String, Boolean> deleteCadastro(@PathVariable(value = "id") Long cadastroId)
@@ -83,20 +82,31 @@ public class UsuarioController {
 		return resposta;
 	}
 
-
-	// Criar uma consulta personalizada de usuarios
-	// video - https://www.youtube.com/watch?v=YWTVxWjCt8Y&list=PLqq_mNkalpQfKWSxPfTqCKpGbSfEfdYD2&index=57
-
-	// Listar todos os usuarios
-	@GetMapping("/usuariosrelatorio")
+	@PostMapping("/consultausuarios")
 	@ResponseStatus(HttpStatus.OK)
-	public List<UsuarioEntity> getAllUsuarios() {
-		return this.usuarioRepository.findUsuarioPersonalizado();
-	}
+	public List<UsuarioEntity> consultaCadastro(@Validated @RequestBody ConsultaPadrao cadastro) throws ResourceNotFoundException {
 
-	@GetMapping("/usuariosrelatorio2")
-	@ResponseStatus(HttpStatus.OK)
-	public List<UsuarioEntity> getAllUsuarios2() {
-		return this.usuarioRepository.findUsuarioPersonalizado2("Julio");
+		String campoUsuario = cadastro.getCampo();
+		List<UsuarioEntity> listaUsuario = new ArrayList<>();
+
+		switch (campoUsuario) {
+            case "id":
+                UsuarioEntity usuario = usuarioRepository.findById(Long.parseLong(cadastro.getValor1()))
+                        .orElseThrow(() -> new ResourceNotFoundException("Registro não encontrado para o ID :: " + cadastro.getValor1()));
+
+                listaUsuario.add(usuario);
+				break;
+            case "email":
+				listaUsuario = this.usuarioRepository.findUsuarioByEmail(cadastro.getValor1());
+				break;
+            case "nome":
+				listaUsuario = this.usuarioRepository.findUsuarioByNome(cadastro.getValor1());
+				break;
+			default:
+				listaUsuario = this.usuarioRepository.findAll();
+				break;
+        }
+
+		return listaUsuario;
 	}
 }

@@ -21,13 +21,13 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long>{
 
     // Filtra apenas Adriano
     // @Query(value="select u from usuario u where u.name = 'adriano'", nativeQuery = false)
-    @Query(value="select u from Usuario u where u.nome like '%adriano%'", nativeQuery = false)
+    @Query(value="select u from UsuarioEntity u where u.nome like '%adriano%'", nativeQuery = false)
     List<UsuarioEntity>findUsuario();
 
-    @Query(value="select u from Usuario u where u.nome like '%Julio%'", nativeQuery = false)
+    @Query(value="select u from UsuarioEntity u where u.nome like '%Julio%'", nativeQuery = false)
     List<UsuarioEntity>findUsuarioPersonalizado();
 
-    @Query(value="select u from Usuario u where lower(u.nome) like lower(concat(:parametro_nome, '%'))", nativeQuery = false)
+    @Query(value="select u from UsuarioEntity u where lower(u.nome) like lower(concat(:parametro_nome, '%'))", nativeQuery = false)
     List<UsuarioEntity>findUsuarioPersonalizado2(@Param("parametro_nome")String parametro_nome);
 
     // video usando parametros no SQL

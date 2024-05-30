@@ -42,9 +42,9 @@ public class ProdutoController {
 
 				listaProduto.add(produto);
 				break;
-			// case "email":
-			// 	listaUsuario = this.usuarioRepository.findUsuarioByEmail(cadastro.getValor1());
-			// 	break;
+			case "descricao":
+				listaProduto = this.produtoRepository.findProdutoByDescricao(cadastro.getValor1());
+				break;
 			// case "nome":
 			// 	listaUsuario = this.usuarioRepository.findUsuarioByNome(cadastro.getValor1());
 			// 	break;

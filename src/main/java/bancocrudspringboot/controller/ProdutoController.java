@@ -39,7 +39,7 @@ public class ProdutoController {
 			cadastro.getValor1().equals("")) {
 			return this.produtoRepository.findAll();
 		}
-
+		
 
 		switch (campoUsuario) {
 			case "codigoConsulta":
@@ -49,7 +49,16 @@ public class ProdutoController {
 				break;			
 			case "descricaoConsulta":
 				listaProduto = this.produtoRepository.findProdutoByDescricao(cadastro.getValor1());
-				break;			
+				break;	
+			case "precoConsulta":
+				listaProduto = this.produtoRepository.findProdutoByPreco(Long.parseLong(cadastro.getValor1()));
+				break;	
+			case "estoqueConsulta":
+				listaProduto = this.produtoRepository.findProdutoByEstoque(Long.parseLong(cadastro.getValor1()));
+				break;	
+			default:
+				listaProduto = this.produtoRepository.findAll();
+				break;
 		}
 
 		return listaProduto;

@@ -35,25 +35,25 @@ public class ProdutoController {
 		String campoUsuario = cadastro.getCampo();
 		List<Produto> listaProduto = new ArrayList<>();
 
+		if (cadastro.getValor1() == null || 
+			cadastro.getValor1().equals("")) {
+			return this.produtoRepository.findAll();
+		}
+
+
 		switch (campoUsuario) {
-			case "id":
+			case "codigoConsulta":
 				Produto produto = produtoRepository.findById(Long.parseLong(cadastro.getValor1()))
 						.orElseThrow(() -> new ResourceNotFoundException("Registro não encontrado para o ID :: " + cadastro.getValor1()));
-
 				listaProduto.add(produto);
-				break;
-			case "descricao":
+				break;			
+			case "descricaoConsulta":
 				listaProduto = this.produtoRepository.findProdutoByDescricao(cadastro.getValor1());
-				break;
-			// case "nome":
-			// 	listaUsuario = this.usuarioRepository.findUsuarioByNome(cadastro.getValor1());
-			// 	break;
-			default:
-				// implementar campo nao existente
-				// listaProduto.orElseThrow(() ->  new ResourceNotFoundException("Campo inexistente na tabela do banco de dados!" + cadastro.getCampo()));
-				break;
+				break;			
 		}
 
 		return listaProduto;
 	}
+
+
 }

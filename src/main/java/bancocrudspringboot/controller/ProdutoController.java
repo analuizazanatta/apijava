@@ -57,8 +57,9 @@ public class ProdutoController {
 				listaProduto = this.produtoRepository.findProdutoByEstoque(Long.parseLong(cadastro.getValor1()));
 				break;	
 			default:
-				listaProduto = this.produtoRepository.findAll();
-				break;
+				throw new ResourceNotFoundException("Campo inexistente na tabela do banco de dados!" + cadastro.getCampo());
+				// listaProduto = this.produtoRepository.findAll();
+				//break;
 		}
 
 		return listaProduto;

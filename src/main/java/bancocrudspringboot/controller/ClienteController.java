@@ -1,7 +1,6 @@
 package bancocrudspringboot.controller;
 
 import java.util.ArrayList;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import bancocrudspringboot.exception.ResourceNotFoundException;
 import bancocrudspringboot.model.Cliente;
+import bancocrudspringboot.model.ConsultaPadrao;
+import bancocrudspringboot.model.OperadoresConsulta;
 import bancocrudspringboot.repository.ClienteRepository;
 
 @CrossOrigin
@@ -75,5 +76,38 @@ public class ClienteController {
 
         return resposta;
     }
+
+    @PostMapping("/consultacliente")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Cliente> consultaCadastro(@Validated @RequestBody ConsultaPadrao cadastro) throws ResourceNotFoundException {
+
+		String campoConsulta = cadastro.getCampo();
+		List<Cliente> listaCliente = new ArrayList<>();
+
+		if(cadastro.getValor1() == null){
+			return this.clienteRepository.findAll();
+		} else if(cadastro.getValor1().equals("")){
+			return this.clienteRepository.findAll();
+		}
+			
+		// OPERADOR -> TODOS
+		String operador = cadastro.getOperador();
+		if(operador.equals(OperadoresConsulta.OPERADOR_TODOS)){
+			return this.clienteRepository.findAll();
+		}
+
+		if(operador.equals(OperadoresConsulta.OPERADOR_IGUAL)){
+			switch (campoConsulta) {
+				case "codigoConsulta":
+					Cliente cliente = clienteRepository.findById(Long.parseLong(cadastro.getValor1()))
+							.orElseThrow(() -> new ResourceNotFoundException("Registro não encontrado para o ID: " + cadastro.getValor1()));
+                            listaCliente.add(cliente);
+					break;                    
+			}
+		} else {
+			throw new ResourceNotFoundException("Operador não desenvolvido!" + cadastro.getOperador());				
+		}
+		return listaCliente;
+	}
 
 }

@@ -42,8 +42,11 @@ public class ProdutoController {
 			return this.produtoRepository.findAll();
 		}
 
-		// OPERADOR -> IGUAL
+		// OPERADOR -> TODOS
 		String operador = cadastro.getOperador();
+		if(operador.equals(OperadoresConsulta.OPERADOR_TODOS)){
+			return this.produtoRepository.findAll();
+		}
 
 		if(operador.equals(OperadoresConsulta.OPERADOR_IGUAL)){
 			switch (campoConsulta) {

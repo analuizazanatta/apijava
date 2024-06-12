@@ -1,3 +1,42 @@
+
+Atividade 01
+Criar a consulta completa para a tabela de Clientes.
+Usar como base a classe ModelCliente.
+
+Criar apenas o metodo "consultaCliente"
+Criar consulta por id, para todos os operadores como foi feito no produto.
+Criar consulta por todos os campos para operadores "IGUAL"
+
+Criar "ClienteController.java"
+Criar "ClienteRepository.java"
+
+# LISTA DE GRUPOS DE ALUNOS
+
+## Grupo 01
+GABRIELE
+ADRIANO 
+DIEGO RICARDO
+
+## Grupo 02
+Cauê
+Bruna
+Júlio
+
+## Grupo 03
+Eduarda
+Romulo
+Helton
+
+## Grupo 04
+Yan Carlos Shcafer
+Vinicius 
+Ryan 
+
+## Grupo 05
+Mikael e Ana Luiza Zanatta
+
+code - ModelCliente abaixo
+```
 package bancocrudspringboot.model;
 
 import javax.persistence.Entity;
@@ -30,6 +69,15 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
-    }
-
+    }    
 }
+
+```
+
+
+
+
+
+
+
+

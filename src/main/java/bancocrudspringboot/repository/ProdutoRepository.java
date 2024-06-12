@@ -16,7 +16,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>{
     List<Produto>findProdutoByDescricao(@Param("descricao")String descricao);
     
     List<Produto>findProdutoByEstoque(int estoque);
-    
+
     List<Produto>findProdutoByPreco(double preco);
 
     @Query(value = "select * from produto where id >= :codigo", nativeQuery = true)
